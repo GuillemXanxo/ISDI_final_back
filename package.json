@@ -4,12 +4,21 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --runInBand --verbose --detectOpenHandles --passWithNoTests",
+    "test": "jest --runInBand --verbose --detectOpenHandles",
     "prepare": "husky install",
     "start": "node src",
     "start-dev": "nodemon src -q",
     "watchall": "jest --watchAll",
     "coverage": "jest --coverage"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/**/*.test.js",
+      "!src/index.js",
+      "!src/server/serverUp.js",
+      "!src/database/index.js"
+    ]
   },
   "keywords": [],
   "author": "",
