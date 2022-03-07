@@ -2,7 +2,7 @@ require("dotenv").config();
 const debug = require("debug")("pallars:root");
 const chalk = require("chalk");
 const serverUp = require("./server/serverUp");
-const app = require("./server/index");
+const { app } = require("./server/index");
 
 const port = process.env.PORT || 3000;
 
