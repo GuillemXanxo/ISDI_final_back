@@ -5,7 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --runInBand --verbose --detectOpenHandles --passWithNoTests",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "start": "node src",
+    "start-dev": "nodemon src -q",
+    "watchall": "jest --watchAll",
+    "coverage": "jest --coverage"
   },
   "keywords": [],
   "author": "",
