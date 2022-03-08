@@ -1,5 +1,5 @@
 const Viatge = require("../../db/models/Viatge");
-const { getViatgesCrono, getViatgesOrigen } = require("./viatgesControllers");
+const { getViatgesCrono } = require("./viatgesControllers");
 
 jest.mock("../../db/models/Viatge");
 
@@ -24,7 +24,7 @@ describe("Given a getViatges controller", () => {
 
       Viatge.find = jest.fn().mockResolvedValue(viatges);
 
-      await getViatges(null, res);
+      await getViatgesCrono(null, res);
 
       expect(Viatge.find).toHaveBeenCalled();
       expect(res.json).toHaveBeenCalledWith({ viatges });
