@@ -51,7 +51,7 @@ describe("Given an endpoint /viatges/crono", () => {
 
 describe("Given an endpoint /viatges/:origen", () => {
   describe("When it receives a GET request", () => {
-    test.only("Then it should respond with status 200 and a list of trips with the origin in params", async () => {
+    test("Then it should respond with status 200 and a list of trips with the origin in params", async () => {
       const { body } = await request(app)
         .get("/viatges/Barcelona")
         .send("Barcelona")
