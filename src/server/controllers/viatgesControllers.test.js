@@ -33,8 +33,8 @@ describe("Given a getViatges controller", () => {
 });
 
 describe("Given a deleteViatge controller", () => {
-  describe("When it a correct id", () => {
-    test.only("Then it should call method json with {}", async () => {
+  describe("When it receives a correct id", () => {
+    test("Then it should call method json with {}", async () => {
       const req = {
         params: {
           id: "2",
@@ -55,6 +55,23 @@ describe("Given a deleteViatge controller", () => {
       await deleteViatge(req, res, next);
 
       expect(res.json).toHaveBeenCalledWith({});
+    });
+  });
+
+  describe("When it receives a nonexisting id", () => {
+    test("Then it should call next with an error", async () => {
+      const req = {
+        params: {
+          id: "2",
+        },
+      };
+      const next = jest.fn();
+      const error = new Error("Could not find the Trip");
+      Viatge.findByIdAndRemove = jest.fn().mockRejectedValue(error);
+
+      await deleteViatge(req, null, next);
+
+      expect(next).toHaveBeenCalledWith(error);
     });
   });
 });

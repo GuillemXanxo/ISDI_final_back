@@ -5,14 +5,7 @@ const getViatgesCrono = async (req, res) => {
   res.json({ viatges });
 };
 
-const getViatgesOrigen = async (req, res) => {
-  const { origen } = req.params;
-  const viatges = await Viatge.find();
-  const viatgesOrigen = viatges.filter((viatge) => viatge.origen === origen);
-  res.json({ viatgesOrigen });
-};
-
-const deleteTrip = async (req, res, next) => {
+const deleteViatge = async (req, res, next) => {
   const { id } = req.params;
   try {
     const viatgeToDelete = await Viatge.findByIdAndDelete(id);
@@ -29,4 +22,4 @@ const deleteTrip = async (req, res, next) => {
   }
 };
 
-module.exports = { getViatgesCrono, getViatgesOrigen, deleteTrip };
+module.exports = { getViatgesCrono, deleteViatge };
