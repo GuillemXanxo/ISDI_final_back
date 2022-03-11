@@ -2,12 +2,12 @@ require("dotenv").config();
 const express = require("express");
 const {
   getViatgesCrono,
-  getViatgesOrigen,
+  deleteViatge,
 } = require("../controllers/viatgesControllers");
 
 const router = express.Router();
 
 router.get("/crono", getViatgesCrono);
-router.get("/:origen", getViatgesOrigen);
+router.delete("/:id", deleteViatge);
 
 module.exports = router;
