@@ -21,11 +21,13 @@ beforeEach(async () => {
       origen: "Barcelona",
       desti: "Sort",
       places: "3",
+      id: "3",
     },
     {
       origen: "Sant Cugat",
       desti: "Esterri d'Aneu",
       places: "2",
+      id: "2",
     },
   ]);
 });
@@ -49,15 +51,20 @@ describe("Given an endpoint /viatges/crono", () => {
   });
 });
 
-describe("Given an endpoint /viatges/:origen", () => {
-  describe("When it receives a GET request", () => {
-    test("Then it should respond with status 200 and a list of trips with the origin in params", async () => {
-      const { body } = await request(app)
-        .get("/viatges/Barcelona")
-        .send("Barcelona")
-        .expect(200);
+describe("Given a /viatges/:id endpoint", () => {
+  describe("When it receives a DELETE request with a trip id", () => {
+    test("Then it should respond with a 200 status code", async () => {
+      const { body } = await request(app).get("/viatges/crono ");
 
-      expect(body).toHaveProperty("viatgesOrigen");
+      await request(app).delete(`/viatges/${body.viatges[0].id}`).expect(200);
+    });
+  });
+
+  describe("When it receives a DELETE request with something different than an id", () => {
+    test("Then it should respond with a 400 status code", async () => {
+      const noId = "12345";
+
+      await request(app).delete(`/viatges/${noId}`).expect(400);
     });
   });
 });
