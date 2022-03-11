@@ -9,5 +9,6 @@ const router = express.Router();
 
 router.get("/crono", getViatgesCrono);
 router.get("/:origen", getViatgesOrigen);
+router.delete("/:id", deleteTrip);
 
 module.exports = router;
