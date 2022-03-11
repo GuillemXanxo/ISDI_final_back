@@ -1,5 +1,5 @@
 const Viatge = require("../../db/models/Viatge");
-const { getViatgesCrono } = require("./viatgesControllers");
+const { getViatgesCrono, deleteViatge } = require("./viatgesControllers");
 
 jest.mock("../../db/models/Viatge");
 
@@ -32,32 +32,29 @@ describe("Given a getViatges controller", () => {
   });
 });
 
-/* describe("Given a getViatgesOrigen controller", () => {
-  describe("When it receives a response", () => {
-    test.only("Then it should call method json with a list of viatges with the received origin in the received response", async () => {
+describe("Given a deleteViatge controller", () => {
+  describe("When it a correct id", () => {
+    test.only("Then it should call method json with {}", async () => {
+      const req = {
+        params: {
+          id: "2",
+        },
+      };
       const res = {
         json: jest.fn(),
       };
+      const next = jest.fn();
+      const viatgeToDelete = {
+        origen: "Barcelona",
+        desti: "Sort",
+        places: "3",
+        id: "2",
+      };
+      Viatge.findByIdAndRemove = jest.fn().mockResolvedValue(viatgeToDelete);
 
-      const viatges = [
-        {
-          origen: "Barcelona",
-          desti: "Sort",
-          places: "3",
-        },
-        {
-          origen: "Sant Cugat",
-          desti: "Esterri d'Aneu",
-          places: "2",
-        },
-      ];
+      await deleteViatge(req, res, next);
 
-      Viatge.find = jest.fn().mockResolvedValue(viatges);
-
-      await getViatgesOrigen(null, res);
-
-      expect(Viatge.find).toHaveBeenCalled();
-      expect(res.json).toHaveBeenCalledWith({ viatges });
+      expect(res.json).toHaveBeenCalledWith({});
     });
   });
-}); */
+});
