@@ -34,27 +34,22 @@ describe("Given a getViatges controller", () => {
 
 describe("Given a deleteViatge controller", () => {
   describe("When it receives a correct id", () => {
-    test("Then it should call method json with {}", async () => {
+    test("Then it should call method findByIdAndDelete with the id", async () => {
+      const id = "2";
       const req = {
         params: {
-          id: "2",
+          id,
         },
       };
       const res = {
-        json: jest.fn(),
+        json: () => {},
       };
-      const next = jest.fn();
-      const viatgeToDelete = {
-        origen: "Barcelona",
-        desti: "Sort",
-        places: "3",
-        id: "2",
-      };
-      Viatge.findByIdAndRemove = jest.fn().mockResolvedValue(viatgeToDelete);
+      const next = () => {};
+      Viatge.findByIdAndDelete = jest.fn().mockResolvedValue({});
 
       await deleteViatge(req, res, next);
 
-      expect(res.json).toHaveBeenCalledWith({});
+      expect(Viatge.findByIdAndDelete).toHaveBeenCalledWith(id);
     });
   });
 
