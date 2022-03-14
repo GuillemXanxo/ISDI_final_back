@@ -1,5 +1,9 @@
 const Viatge = require("../../db/models/Viatge");
-const { getViatgesCrono, deleteViatge } = require("./viatgesControllers");
+const {
+  getViatgesCrono,
+  deleteViatge,
+  createViatge,
+} = require("./viatgesControllers");
 
 jest.mock("../../db/models/Viatge");
 
@@ -67,6 +71,55 @@ describe("Given a deleteViatge controller", () => {
       await deleteViatge(req, null, next);
 
       expect(next).toHaveBeenCalledWith(error);
+    });
+  });
+});
+
+describe("Given a createViatge controller", () => {
+  describe("When it receives newViatge as body in req", () => {
+    test("Then it should call method json with the created trip and a status 201", async () => {
+      const res = {
+        json: jest.fn(),
+      };
+      const status = jest.fn().mockReturnValue(res);
+      res.status = status;
+      const newViatge = {
+        origen: "Barcelona",
+        desti: "Sort",
+        places: 3,
+        horaSortida: 18,
+        comentaris: "S'accepten animals",
+        dones: false,
+        data: "2018-02-12 19:23:45",
+        id: "2",
+      };
+
+      const req = {
+        body: newViatge,
+      };
+      Viatge.create = jest.fn().mockResolvedValue(newViatge);
+      await createViatge(req, res);
+
+      expect(Viatge.create).toHaveBeenCalled();
+      expect(res.json).toHaveBeenCalledWith(newViatge);
+    });
+  });
+
+  describe("When it receives an invalid newTrip as body in req", () => {
+    test("Then it should call next with an error code 400 an a message 'Viatge invàlid o incorrecte'", async () => {
+      const tuitToCreate = {};
+
+      const req = {
+        body: tuitToCreate,
+      };
+
+      const next = jest.fn();
+
+      Viatge.create = jest.fn().mockRejectedValue();
+      await createViatge(req, null, next);
+
+      expect(Viatge.create).toHaveBeenCalled();
+      expect(next).toHaveBeenCalled();
     });
   });
 });
