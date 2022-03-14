@@ -68,3 +68,27 @@ describe("Given a /viatges/:id endpoint", () => {
     });
   });
 });
+
+describe("Given an endpoint viatges/crear", () => {
+  describe("When it receives a POST request with a Trip", () => {
+    test("Then it should respond with json with the new trip and status 201", async () => {
+      const newViatge = {
+        origen: "Barcelona",
+        desti: "Sort",
+        places: 3,
+        horaSortida: 18,
+        comentaris: "S'accepten animals",
+        dones: false,
+        data: "2018-02-12 19:23:45",
+        id: "2",
+      };
+
+      const { body } = await request(app)
+        .post("/viatges/crear")
+        .send(newViatge)
+        .expect(201);
+
+      expect(body).toHaveProperty("origen", "Barcelona");
+    });
+  });
+});
