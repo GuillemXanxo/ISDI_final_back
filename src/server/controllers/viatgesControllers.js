@@ -22,4 +22,16 @@ const deleteViatge = async (req, res, next) => {
   }
 };
 
-module.exports = { getViatgesCrono, deleteViatge };
+const createViatge = async (req, res, next) => {
+  try {
+    const toCreateViatge = req.body;
+    const createdViatge = await Viatge.create(toCreateViatge);
+    res.status(201).json(createdViatge);
+  } catch (error) {
+    const newError = new Error("Viatge invàlid o incorrecte");
+    newError.status = 400;
+    next(newError);
+  }
+};
+
+module.exports = { getViatgesCrono, deleteViatge, createViatge };
