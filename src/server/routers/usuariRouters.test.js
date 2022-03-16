@@ -21,6 +21,7 @@ beforeEach(async () => {
     contrassenya:
       "$2b$12$KnjkBf7vey3gckkpSkfBn.4kaIvpp4rR/O3ObavMUSLzheB7rx8Zi",
     nom: "Guillem",
+    telefon: 666666666,
   });
 });
 
