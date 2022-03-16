@@ -24,4 +24,6 @@ const userLogin = async (req, res, next) => {
   return res.json({ token });
 };
 
-module.exports = userLogin;
+const userRegister = () => {};
+
+module.exports = { userLogin, userRegister };
