@@ -10,10 +10,7 @@ const userLogin = async (req, res, next) => {
     error.status = 401;
     return next(error);
   }
-  const isRightPassword = await bcrypt.compare(
-    contrassenya,
-    usuari.contrassenya
-  );
+  const isRightPassword = await bcrypt.compare(contrassenya, user.contrassenya);
   if (!isRightPassword) {
     const errorWrongPwd = new Error("Alguna de les teves dades no és vàlida");
     errorWrongPwd.status = 401;

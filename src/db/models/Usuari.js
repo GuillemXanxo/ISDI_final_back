@@ -15,6 +15,10 @@ const UsuariSchema = new Schema({
     type: String,
     required: true,
   },
+  telefon: {
+    type: Number,
+    required: true,
+  },
   viatges: [
     {
       type: Schema.Types.ObjectId,
