@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const encrypt = require("../../utils/encrypt");
 const Usuari = require("../../db/models/Usuari");
 
 const userLogin = async (req, res, next) => {
@@ -24,6 +25,29 @@ const userLogin = async (req, res, next) => {
   return res.json({ token });
 };
 
-const userRegister = () => {};
+const userRegister = async (req, res, next) => {
+  const { nom, usuari, contrassenya, telefon } = req.body;
+  const user = await Usuari.findOne({ usuari });
+  if (!usuari || !contrassenya || !telefon || !nom || user) {
+    const errorWPW = new Error(`Alguna cosa ha anat malament en el registre`);
+    errorWPW.status = 400;
+    return next(errorWPW);
+  }
+  try {
+    const encryptedPasword = await encrypt(contrassenya);
+    await Usuari.create({
+      nom,
+      usuari,
+      contrassenya: encryptedPasword,
+      telefon,
+      viatges: [],
+    });
+    return res
+      .status(201)
+      .json({ message: `Usuari ${usuari} s'ha registrat correctament` });
+  } catch (error) {
+    return next(error);
+  }
+};
 
 module.exports = { userLogin, userRegister };

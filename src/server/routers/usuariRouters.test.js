@@ -87,3 +87,26 @@ describe("Given an endpoint /usuari/login", () => {
     });
   });
 });
+
+describe("Given a usuari/register endpoint", () => {
+  describe("When it receives a post request with an existing user", () => {
+    test("Then it should respond with an error message `Alguna cosa ha anat malament en el registre`", async () => {
+      const userToCreate = {
+        name: "Marc",
+        username: "gxanxo",
+        password: "marc",
+      };
+
+      const errorMessage = `Alguna cosa ha anat malament en el registre`;
+
+      const { body } = await request(app)
+        .post("/usuari/register")
+        .send(userToCreate)
+        .expect(400);
+
+      expect(body).toHaveProperty("message");
+      expect(body).toHaveProperty("error");
+      expect(body.message).toBe(errorMessage);
+    });
+  });
+});
