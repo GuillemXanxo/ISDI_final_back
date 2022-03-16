@@ -109,4 +109,25 @@ describe("Given a usuari/register endpoint", () => {
       expect(body.message).toBe(errorMessage);
     });
   });
+
+  describe("When it receives a post request with a new user", () => {
+    test("Then it should respond with a message `Usuari marc1990 s'ha registrat correctament`", async () => {
+      const userToCreate = {
+        nom: "Marc",
+        usuari: "marc1990",
+        contrassenya: "marc",
+        telefon: 611111111,
+      };
+
+      const Message = `Usuari ${userToCreate.usuari} s'ha registrat correctament`;
+
+      const { body } = await request(app)
+        .post("/usuari/register")
+        .send(userToCreate)
+        .expect(201);
+
+      expect(body).toHaveProperty("message");
+      expect(body.message).toBe(Message);
+    });
+  });
 });
