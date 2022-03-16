@@ -26,6 +26,7 @@ const userLogin = async (req, res, next) => {
 };
 
 const userRegister = async (req, res, next) => {
+  const nouUsuari = req.body;
   const { nom, usuari, contrassenya, telefon } = req.body;
   const user = await Usuari.findOne({ usuari });
   if (!usuari || !contrassenya || !telefon || !nom || user) {
@@ -33,21 +34,16 @@ const userRegister = async (req, res, next) => {
     errorWPW.status = 400;
     return next(errorWPW);
   }
-  try {
-    const encryptedPasword = await encrypt(contrassenya);
-    await Usuari.create({
-      nom,
-      usuari,
-      contrassenya: encryptedPasword,
-      telefon,
-      viatges: [],
-    });
-    return res
-      .status(201)
-      .json({ message: `Usuari ${usuari} s'ha registrat correctament` });
-  } catch (error) {
-    return next(error);
-  }
+  const encryptedPasword = await encrypt(contrassenya);
+  await Usuari.create({
+    ...nouUsuari,
+    contrassenya: encryptedPasword,
+
+    viatges: [],
+  });
+  return res
+    .status(201)
+    .json({ message: `Usuari ${usuari} s'ha registrat correctament` });
 };
 
 module.exports = { userLogin, userRegister };
