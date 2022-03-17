@@ -1,3 +1,4 @@
+const debug = require("debug")("pallars:viatgesControllers");
 const Viatge = require("../../db/models/Viatge");
 
 const getViatgesCrono = async (req, res) => {
@@ -25,6 +26,16 @@ const deleteViatge = async (req, res, next) => {
 const createViatge = async (req, res, next) => {
   try {
     const toCreateViatge = req.body;
+    debug(toCreateViatge);
+    toCreateViatge.horaSortidaNumber = toCreateViatge.horaSortida.replace(
+      /:/g,
+      ""
+    );
+    toCreateViatge.dataNumber = toCreateViatge.data.replace(/-/g, "");
+    debug(toCreateViatge);
+    parseInt(toCreateViatge.horaSortidaNumber, 10);
+    parseInt(toCreateViatge.dataNumber, 10);
+    debug(toCreateViatge);
     const createdViatge = await Viatge.create(toCreateViatge);
     res.status(201).json(createdViatge);
   } catch (error) {

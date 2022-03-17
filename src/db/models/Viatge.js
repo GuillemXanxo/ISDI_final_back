@@ -13,12 +13,20 @@ const ViatgeSchema = new Schema({
     type: Number,
     required: true,
   },
+  dataNumber: {
+    type: Number,
+    required: true,
+  },
   data: {
-    type: Date,
+    type: String,
+    required: true,
+  },
+  horaSortidaNumber: {
+    type: Number,
     required: true,
   },
   horaSortida: {
-    type: Number,
+    type: String,
     required: true,
   },
   comentaris: {
