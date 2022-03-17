@@ -15,9 +15,11 @@ const ViatgeSchema = new Schema({
   },
   data: {
     type: Date,
+    required: true,
   },
   horaSortida: {
     type: Number,
+    required: true,
   },
   comentaris: {
     type: String,
