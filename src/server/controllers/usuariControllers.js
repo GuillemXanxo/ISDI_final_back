@@ -26,7 +26,6 @@ const userLogin = async (req, res, next) => {
 };
 
 const userRegister = async (req, res, next) => {
-  const nouUsuari = req.body;
   const { nom, usuari, contrassenya, telefon } = req.body;
   const user = await Usuari.findOne({ usuari });
   if (!usuari || !contrassenya || !telefon || !nom || user) {
@@ -36,9 +35,10 @@ const userRegister = async (req, res, next) => {
   }
   const encryptedPasword = await encrypt(contrassenya);
   await Usuari.create({
-    ...nouUsuari,
+    nom,
+    usuari,
     contrassenya: encryptedPasword,
-
+    telefon,
     viatges: [],
   });
   return res

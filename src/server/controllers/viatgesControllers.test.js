@@ -86,11 +86,11 @@ describe("Given a createViatge controller", () => {
       const newViatge = {
         origen: "Barcelona",
         desti: "Sort",
-        places: 3,
-        horaSortida: 18,
+        places: "3",
+        horaSortida: "18:00",
         comentaris: "S'accepten animals",
         dones: false,
-        data: "2018-02-12 19:23:45",
+        data: "2018-02-12",
         id: "2",
       };
 
@@ -107,10 +107,10 @@ describe("Given a createViatge controller", () => {
 
   describe("When it receives an invalid newTrip as body in req", () => {
     test("Then it should call next with an error code 400 an a message 'Viatge invàlid o incorrecte'", async () => {
-      const tuitToCreate = {};
+      const tripToCreate = {};
 
       const req = {
-        body: tuitToCreate,
+        body: tripToCreate,
       };
 
       const next = jest.fn();
@@ -118,7 +118,6 @@ describe("Given a createViatge controller", () => {
       Viatge.create = jest.fn().mockRejectedValue();
       await createViatge(req, null, next);
 
-      expect(Viatge.create).toHaveBeenCalled();
       expect(next).toHaveBeenCalled();
     });
   });

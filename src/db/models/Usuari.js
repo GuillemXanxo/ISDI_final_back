@@ -16,7 +16,7 @@ const UsuariSchema = new Schema({
     required: true,
   },
   telefon: {
-    type: Number,
+    type: String,
     required: true,
   },
   viatges: [

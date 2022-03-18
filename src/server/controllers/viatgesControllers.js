@@ -25,6 +25,13 @@ const deleteViatge = async (req, res, next) => {
 const createViatge = async (req, res, next) => {
   try {
     const toCreateViatge = req.body;
+    toCreateViatge.horaSortidaNumber = toCreateViatge.horaSortida.replace(
+      /:/g,
+      ""
+    );
+    toCreateViatge.dataNumber = toCreateViatge.data.replace(/-/g, "");
+    parseInt(toCreateViatge.horaSortidaNumber, 10);
+    parseInt(toCreateViatge.dataNumber, 10);
     const createdViatge = await Viatge.create(toCreateViatge);
     res.status(201).json(createdViatge);
   } catch (error) {

@@ -1,0 +1,130 @@
+{
+  "info": {
+    "_postman_id": "817006c9-61c7-43bf-9fc1-34e5c9e9d869",
+    "name": "Transporta't Pallars - Guillem Xanxo",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "viatges/crono no auth",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{URL}}viatges/crono",
+          "host": ["{{URL}}viatges"],
+          "path": ["crono"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "viatges/crear no auth",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"origen\": \"Barcelona\",\n    \"desti\": \"Sort\",\n    \"places\": \"3\",\n    \"dones\": true,\n    \"comentaris\": \"Viatge fet des de Postman\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{URL}}viatges/crear",
+          "host": ["{{URL}}viatges"],
+          "path": ["crear"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "viatges/:id no auth",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{URL}}viatges/:id",
+          "host": ["{{URL}}viatges"],
+          "path": [":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": null
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "User login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{  \n    \"usuari\": \"Marieta\",\n    \"contrassenya\": \"delullviu\"    \n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{URL}}usuari/login",
+          "host": ["{{URL}}usuari"],
+          "path": ["login"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "User register",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"nom\": \"Maria\",\n    \"usuari\": \"Marieta\",\n    \"contrassenya\": \"delullviu\",\n    \"telefon\": 655555555\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{URL}}usuari/register",
+          "host": ["{{URL}}usuari"],
+          "path": ["register"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "URL",
+      "value": "https://transportat-pallars-guillem-xanxo.onrender.com/",
+      "type": "string"
+    }
+  ]
+}
