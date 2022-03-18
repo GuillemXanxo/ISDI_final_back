@@ -1,4 +1,3 @@
-const debug = require("debug")("pallars:viatgesControllers");
 const Viatge = require("../../db/models/Viatge");
 
 const getViatgesCrono = async (req, res) => {
