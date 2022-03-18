@@ -15,7 +15,6 @@ const ViatgeSchema = new Schema({
   },
   dataNumber: {
     type: Number,
-    required: true,
   },
   data: {
     type: String,
@@ -23,7 +22,6 @@ const ViatgeSchema = new Schema({
   },
   horaSortidaNumber: {
     type: Number,
-    required: true,
   },
   horaSortida: {
     type: String,
