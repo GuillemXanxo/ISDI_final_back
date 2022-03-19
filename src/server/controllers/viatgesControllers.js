@@ -22,6 +22,23 @@ const deleteViatge = async (req, res, next) => {
   }
 };
 
+const getThisViatge = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const viatgeToFind = await Viatge.findById(id);
+    if (viatgeToFind) {
+      res.json({ viatgeToFind });
+    } else {
+      const error = new Error("Could not find the Trip");
+      error.status = 404;
+      next(error);
+    }
+  } catch (error) {
+    error.status = 400;
+    next(error);
+  }
+};
+
 const createViatge = async (req, res, next) => {
   try {
     const toCreateViatge = req.body;
@@ -41,4 +58,4 @@ const createViatge = async (req, res, next) => {
   }
 };
 
-module.exports = { getViatgesCrono, deleteViatge, createViatge };
+module.exports = { getViatgesCrono, deleteViatge, createViatge, getThisViatge };

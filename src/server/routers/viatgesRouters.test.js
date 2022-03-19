@@ -100,3 +100,21 @@ describe("Given an endpoint viatges/crear", () => {
     });
   });
 });
+
+describe("Given a /viatges/:id endpoint", () => {
+  describe("When it receives a GET request with a trip id", () => {
+    test("Then it should respond with a 200 status code", async () => {
+      const { body } = await request(app).get("/viatges/crono ");
+
+      await request(app).get(`/viatges/${body.viatges[0].id}`).expect(200);
+    });
+  });
+
+  describe("When it receives a GET request with something different than an id", () => {
+    test("Then it should respond with a 400 status code", async () => {
+      const noId = "12345";
+
+      await request(app).delete(`/viatges/${noId}`).expect(400);
+    });
+  });
+});
