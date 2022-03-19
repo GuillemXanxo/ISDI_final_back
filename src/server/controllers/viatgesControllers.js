@@ -25,9 +25,9 @@ const deleteViatge = async (req, res, next) => {
 const getThisViatge = async (req, res, next) => {
   const { id } = req.params;
   try {
-    const viatgeToFind = await Viatge.findById(id);
-    if (viatgeToFind) {
-      res.json({ viatgeToFind });
+    const trip = await Viatge.findById(id);
+    if (trip) {
+      res.json({ trip });
     } else {
       const error = new Error("Could not find the Trip");
       error.status = 404;
