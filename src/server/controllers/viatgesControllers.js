@@ -1,7 +1,10 @@
 const Viatge = require("../../db/models/Viatge");
 
 const getViatgesCrono = async (req, res) => {
-  const viatges = await Viatge.find();
+  const viatgesUnordered = await Viatge.find();
+  const viatges = await viatgesUnordered.sort(
+    (a, b) => a.dataNumber - b.dataNumber
+  );
   res.json({ viatges });
 };
 
