@@ -6,12 +6,13 @@ const {
   createViatge,
   getThisViatge,
 } = require("../controllers/viatgesControllers");
+const auth = require("../middlewares/auth");
 
 const router = express.Router();
 
 router.get("/crono", getViatgesCrono);
-router.delete("/:id", deleteViatge);
+router.delete("/:id", auth, deleteViatge);
 router.get("/:id", getThisViatge);
-router.post("/crear", createViatge);
+router.post("/crear", auth, createViatge);
 
 module.exports = router;

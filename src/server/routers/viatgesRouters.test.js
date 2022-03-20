@@ -1,12 +1,15 @@
 require("dotenv").config();
+const jwt = require("jsonwebtoken");
 const { MongoMemoryServer } = require("mongodb-memory-server");
 const { default: mongoose } = require("mongoose");
 const request = require("supertest");
 const { app } = require("..");
 const connectDB = require("../../db");
+const Usuari = require("../../db/models/Usuari");
 const Viatge = require("../../db/models/Viatge");
 
 let mongoServer;
+let token;
 
 beforeAll(async () => {
   mongoServer = await MongoMemoryServer.create();
@@ -38,6 +41,20 @@ beforeEach(async () => {
       id: "2",
     },
   ]);
+
+  await Usuari.create({
+    nom: "Guillem",
+    contrassenya:
+      "$2b$12$KnjkBf7vey3gckkpSkfBn.4kaIvpp4rR/O3ObavMUSLzheB7rx8Zi",
+    usuari: "gxanxo",
+    telefon: 666666666,
+  });
+
+  const userDataToken = {
+    usuari: "gxanxo",
+  };
+
+  token = jwt.sign(userDataToken, process.env.JWT_SECRET);
 });
 
 afterEach(async () => {
@@ -64,7 +81,10 @@ describe("Given a /viatges/:id endpoint", () => {
     test("Then it should respond with a 200 status code", async () => {
       const { body } = await request(app).get("/viatges/crono ");
 
-      await request(app).delete(`/viatges/${body.viatges[0].id}`).expect(200);
+      await request(app)
+        .delete(`/viatges/${body.viatges[0].id}`)
+        .set("authorization", `Bearer ${token}`)
+        .expect(200);
     });
   });
 
@@ -72,7 +92,10 @@ describe("Given a /viatges/:id endpoint", () => {
     test("Then it should respond with a 400 status code", async () => {
       const noId = "12345";
 
-      await request(app).delete(`/viatges/${noId}`).expect(400);
+      await request(app)
+        .delete(`/viatges/${noId}`)
+        .set("authorization", `Bearer ${token}`)
+        .expect(400);
     });
   });
 });
@@ -93,6 +116,7 @@ describe("Given an endpoint viatges/crear", () => {
 
       const { body } = await request(app)
         .post("/viatges/crear")
+        .set("authorization", `Bearer ${token}`)
         .send(newViatge)
         .expect(201);
 
@@ -107,14 +131,6 @@ describe("Given a /viatges/:id endpoint", () => {
       const { body } = await request(app).get("/viatges/crono ");
 
       await request(app).get(`/viatges/${body.viatges[0].id}`).expect(200);
-    });
-  });
-
-  describe("When it receives a GET request with something different than an id", () => {
-    test("Then it should respond with a 400 status code", async () => {
-      const noId = "12345";
-
-      await request(app).delete(`/viatges/${noId}`).expect(400);
     });
   });
 });
