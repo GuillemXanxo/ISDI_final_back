@@ -1,6 +1,5 @@
 const Viatge = require("../../db/models/Viatge");
 const Usuari = require("../../db/models/Usuari");
-const debug = require("debug")("pallars:createViatge");
 
 const getViatgesCrono = async (req, res) => {
   const viatgesUnordered = await Viatge.find();
@@ -55,9 +54,6 @@ const createViatge = async (req, res, next) => {
     parseInt(toCreateViatge.horaSortidaNumber, 10);
     parseInt(toCreateViatge.dataNumber, 10);
     const createdViatge = await Viatge.create(toCreateViatge);
-    // const user = await Usuari.findById(req.userId);
-    debug(req.userId);
-    debug(createdViatge.id);
     await Usuari.findOneAndUpdate(
       { _id: req.userId },
       { $push: { viatges: createdViatge.id } }
