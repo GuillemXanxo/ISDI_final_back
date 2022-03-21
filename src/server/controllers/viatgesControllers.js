@@ -9,6 +9,17 @@ const getViatgesCrono = async (req, res) => {
   res.json({ viatges });
 };
 
+const getUserViatges = async (req, res, next) => {
+  try {
+    const userViatges = await Usuari.findById(req.userId).populate("viatges");
+    res.json(userViatges.viatges);
+  } catch (error) {
+    error.status = 400;
+    error.message = "Unable to find user's trips";
+    next(error);
+  }
+};
+
 const deleteViatge = async (req, res, next) => {
   const { id } = req.params;
   try {
@@ -66,4 +77,10 @@ const createViatge = async (req, res, next) => {
   }
 };
 
-module.exports = { getViatgesCrono, deleteViatge, createViatge, getThisViatge };
+module.exports = {
+  getViatgesCrono,
+  deleteViatge,
+  createViatge,
+  getThisViatge,
+  getUserViatges,
+};

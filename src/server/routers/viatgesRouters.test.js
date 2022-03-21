@@ -19,6 +19,20 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
+  await Usuari.create({
+    nom: "Guillem",
+    contrassenya:
+      "$2b$12$KnjkBf7vey3gckkpSkfBn.4kaIvpp4rR/O3ObavMUSLzheB7rx8Zi",
+    usuari: "gxanxo",
+    telefon: 666666666,
+  });
+
+  const userDataToken = {
+    usuari: "gxanxo",
+  };
+
+  token = jwt.sign(userDataToken, process.env.JWT_SECRET);
+
   await Viatge.create([
     {
       origen: "Barcelona",
@@ -41,20 +55,6 @@ beforeEach(async () => {
       id: "2",
     },
   ]);
-
-  await Usuari.create({
-    nom: "Guillem",
-    contrassenya:
-      "$2b$12$KnjkBf7vey3gckkpSkfBn.4kaIvpp4rR/O3ObavMUSLzheB7rx8Zi",
-    usuari: "gxanxo",
-    telefon: 666666666,
-  });
-
-  const userDataToken = {
-    usuari: "gxanxo",
-  };
-
-  token = jwt.sign(userDataToken, process.env.JWT_SECRET);
 });
 
 afterEach(async () => {
@@ -134,3 +134,38 @@ describe("Given a /viatges/:id endpoint", () => {
     });
   });
 });
+/*
+describe("Given a viatges/publicats endpoint", () => {
+  describe("When a GET request arrives with a correct token", () => {
+    test("Then it should send a response with an array of viatges and a status code of 200", async () => {
+      const { body } = await request(app)
+        .get("/viatges/publicats")
+        .set("Authorization", `Bearer ${token}`)
+        .expect(200);
+
+      expect(body).toEqual([
+        {
+          origen: "Barcelona",
+          desti: "Sort",
+          places: "3",
+          horaSortida: "18:00",
+          comentaris: "S'accepten animals",
+          dones: false,
+          data: "2018-02-12",
+          id: "1",
+        },
+        {
+          origen: "Barcelona",
+          desti: "Sort",
+          places: "3",
+          horaSortida: "18:00",
+          comentaris: "S'accepten animals",
+          dones: false,
+          data: "2018-02-12",
+          id: "2",
+        },
+      ]);
+    });
+  });
+});
+*/

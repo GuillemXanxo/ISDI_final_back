@@ -4,6 +4,7 @@ const {
   getViatgesCrono,
   deleteViatge,
   createViatge,
+  getUserViatges,
 } = require("./viatgesControllers");
 
 jest.mock("../../db/models/Viatge");
@@ -122,6 +123,93 @@ describe("Given a createViatge controller", () => {
       await createViatge(req, null, next);
 
       expect(next).toHaveBeenCalled();
+    });
+  });
+});
+
+describe("Given a getUserViatges function", () => {
+  describe("When it receives an object req with a userId", () => {
+    test("Then it should invoke the method json and call the User.findById function", async () => {
+      const req = {
+        id: "1",
+      };
+      const next = jest.fn();
+      const userViatges = {
+        viatges: [
+          {
+            origen: "Barcelona",
+            desti: "Sort",
+            places: "3",
+          },
+          {
+            origen: "Barcelona",
+            desti: "Sort",
+            places: "3",
+          },
+        ],
+      };
+      Usuari.findById = jest.fn().mockReturnValue({
+        populate: jest.fn().mockResolvedValue(userViatges),
+      });
+      const res = {
+        json: jest.fn(),
+      };
+
+      await getUserViatges(req, res, next);
+
+      expect(Usuari.findById).toHaveBeenCalledWith(req.userId);
+      expect(res.json).toHaveBeenCalledWith(userViatges.viatges);
+    });
+  });
+
+  describe("When it receives an object req with a userId", () => {
+    test("Then it should invoke the method json and call the User.findById function", async () => {
+      const req = {
+        id: "1",
+      };
+      const next = jest.fn();
+      const userViatges = {
+        viatges: [
+          {
+            origen: "Barcelona",
+            desti: "Sort",
+            places: "3",
+          },
+          {
+            origen: "Barcelona",
+            desti: "Sort",
+            places: "3",
+          },
+        ],
+      };
+      Usuari.findById = jest.fn().mockReturnValue({
+        populate: jest.fn().mockResolvedValue(userViatges),
+      });
+      const res = {
+        json: jest.fn(),
+      };
+
+      await getUserViatges(req, res, next);
+
+      expect(Usuari.findById).toHaveBeenCalledWith(req.userId);
+      expect(res.json).toHaveBeenCalledWith(userViatges.viatges);
+    });
+  });
+  describe("When it receives an object req without a userId", () => {
+    test("Then it should invoke the method next", async () => {
+      const req = { body: {}, id: "" };
+      const next = jest.fn();
+      Usuari.findById = jest.fn().mockReturnValue({
+        populate: jest.fn().mockResolvedValue(),
+      });
+      const res = {
+        json: jest.fn(),
+      };
+      const expectedError = new Error("Unable to find user's trips");
+
+      await getUserViatges(req, res, next);
+
+      expect(next).toHaveBeenCalledWith(expectedError);
     });
   });
 });
