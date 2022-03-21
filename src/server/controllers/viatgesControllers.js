@@ -62,6 +62,7 @@ const createViatge = async (req, res, next) => {
       { _id: req.userId },
       { $push: { viatges: createdViatge.id } }
     );
+    res.status(201).json(createdViatge);
   } catch (error) {
     const newError = new Error("Viatge invàlid o incorrecte");
     newError.status = 400;
