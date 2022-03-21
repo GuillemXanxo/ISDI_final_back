@@ -18,8 +18,8 @@ const userLogin = async (req, res, next) => {
     return next(errorWrongPwd);
   }
   const userData = {
-    nom: usuari.nom,
-    id: usuari.id,
+    nom: user.nom,
+    id: user.id,
   };
   const token = jwt.sign(userData, process.env.JWT_SECRET, { expiresIn: "7d" });
   return res.json({ token });

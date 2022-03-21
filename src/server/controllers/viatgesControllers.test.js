@@ -1,3 +1,4 @@
+const Usuari = require("../../db/models/Usuari");
 const Viatge = require("../../db/models/Viatge");
 const {
   getViatgesCrono,
@@ -89,15 +90,17 @@ describe("Given a createViatge controller", () => {
         places: "3",
         horaSortida: "18:00",
         comentaris: "S'accepten animals",
-        dones: false,
+        dones: "false",
         data: "2018-02-12",
         id: "2",
       };
 
       const req = {
         body: newViatge,
+        userId: "3",
       };
       Viatge.create = jest.fn().mockResolvedValue(newViatge);
+      Usuari.findOneAndUpdate = jest.fn().mockResolvedValue({});
       await createViatge(req, res);
 
       expect(Viatge.create).toHaveBeenCalled();
