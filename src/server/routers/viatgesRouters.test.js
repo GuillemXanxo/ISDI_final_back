@@ -78,7 +78,7 @@ describe("Given an endpoint /viatges/crono", () => {
 
 describe("Given a /viatges/:id endpoint", () => {
   describe("When it receives a DELETE request with a trip id", () => {
-    test("Then it should respond with a 200 status code", async () => {
+    test.skip("Then it should respond with a 200 status code", async () => {
       const { body } = await request(app).get("/viatges/crono ");
 
       await request(app)
@@ -102,7 +102,7 @@ describe("Given a /viatges/:id endpoint", () => {
 
 describe("Given an endpoint viatges/crear", () => {
   describe("When it receives a POST request with a Trip", () => {
-    test("Then it should respond with json with the new trip and status 201", async () => {
+    test.skip("Then it should respond with json with the new trip and status 201", async () => {
       const newViatge = {
         origen: "Barcelona",
         desti: "Sort",
@@ -134,10 +134,10 @@ describe("Given a /viatges/:id endpoint", () => {
     });
   });
 });
-/*
+
 describe("Given a viatges/publicats endpoint", () => {
   describe("When a GET request arrives with a correct token", () => {
-    test("Then it should send a response with an array of viatges and a status code of 200", async () => {
+    test.skip("Then it should send a response with an array of viatges and a status code of 200", async () => {
       const { body } = await request(app)
         .get("/viatges/publicats")
         .set("Authorization", `Bearer ${token}`)
@@ -168,4 +168,3 @@ describe("Given a viatges/publicats endpoint", () => {
     });
   });
 });
-*/

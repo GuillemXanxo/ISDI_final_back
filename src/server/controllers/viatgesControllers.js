@@ -25,7 +25,7 @@ const deleteViatge = async (req, res, next) => {
   try {
     const viatgeToDelete = await Viatge.findByIdAndDelete(id);
     if (viatgeToDelete) {
-      await Usuari.findByIdUpdate(
+      await Usuari.findByIdAndUpdate(
         { _id: req.userId },
         { $pull: { viatges: viatgeToDelete.id } }
       );
