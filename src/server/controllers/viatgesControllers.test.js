@@ -46,6 +46,7 @@ describe("Given a deleteViatge controller", () => {
         params: {
           id,
         },
+        userId: "42",
       };
       const res = {
         json: () => {},
@@ -79,7 +80,7 @@ describe("Given a deleteViatge controller", () => {
 
 describe("Given a createViatge controller", () => {
   describe("When it receives newViatge as body in req", () => {
-    test("Then it should call method json with the created trip and a status 201", async () => {
+    test.only("Then it should call method json with the created trip and a status 201", async () => {
       const res = {
         json: jest.fn(),
       };

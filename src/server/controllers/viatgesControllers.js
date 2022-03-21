@@ -25,6 +25,10 @@ const deleteViatge = async (req, res, next) => {
   try {
     const viatgeToDelete = await Viatge.findByIdAndDelete(id);
     if (viatgeToDelete) {
+      await Usuari.findOneAndUpdate(
+        { _id: req.userId },
+        { $pull: { viatges: viatgeToDelete.id } }
+      );
       res.json({});
     } else {
       const error = new Error("Could not find the Trip");
