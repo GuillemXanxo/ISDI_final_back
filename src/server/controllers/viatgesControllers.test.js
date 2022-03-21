@@ -80,7 +80,7 @@ describe("Given a deleteViatge controller", () => {
 
 describe("Given a createViatge controller", () => {
   describe("When it receives newViatge as body in req", () => {
-    test.only("Then it should call method json with the created trip and a status 201", async () => {
+    test("Then it should call method json with the created trip and a status 201", async () => {
       const res = {
         json: jest.fn(),
       };
@@ -102,7 +102,7 @@ describe("Given a createViatge controller", () => {
         userId: "3",
       };
       Viatge.create = jest.fn().mockResolvedValue(newViatge);
-      Usuari.findOneAndUpdate = jest.fn().mockResolvedValue({});
+      Usuari.findByIdAndUpdate = jest.fn().mockResolvedValue({});
       await createViatge(req, res);
 
       expect(Viatge.create).toHaveBeenCalled();
