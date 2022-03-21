@@ -1,4 +1,6 @@
 const Viatge = require("../../db/models/Viatge");
+const Usuari = require("../../db/models/Usuari");
+const debug = require("debug")("pallars:createViatge");
 
 const getViatgesCrono = async (req, res) => {
   const viatgesUnordered = await Viatge.find();
@@ -53,6 +55,10 @@ const createViatge = async (req, res, next) => {
     parseInt(toCreateViatge.horaSortidaNumber, 10);
     parseInt(toCreateViatge.dataNumber, 10);
     const createdViatge = await Viatge.create(toCreateViatge);
+    const user = await Usuari.findById(req.userId);
+    debug(req.userId);
+    debug(createdViatge.id);
+    user.viatges.push(createdViatge.id);
     res.status(201).json(createdViatge);
   } catch (error) {
     const newError = new Error("Viatge invàlid o incorrecte");
