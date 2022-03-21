@@ -25,7 +25,7 @@ const deleteViatge = async (req, res, next) => {
   try {
     const viatgeToDelete = await Viatge.findByIdAndDelete(id);
     if (viatgeToDelete) {
-      await Usuari.findOneAndUpdate(
+      await Usuari.findByIdAndUpdate(
         { _id: req.userId },
         { $pull: { viatges: viatgeToDelete.id } }
       );
@@ -69,7 +69,7 @@ const createViatge = async (req, res, next) => {
     parseInt(toCreateViatge.horaSortidaNumber, 10);
     parseInt(toCreateViatge.dataNumber, 10);
     const createdViatge = await Viatge.create(toCreateViatge);
-    await Usuari.findOneAndUpdate(
+    await Usuari.findByIdAndUpdate(
       { _id: req.userId },
       { $push: { viatges: createdViatge.id } }
     );
