@@ -12,6 +12,7 @@ const getViatgesCrono = async (req, res) => {
 const getUserViatges = async (req, res, next) => {
   try {
     const userViatges = await Usuari.findById(req.userId).populate("viatges");
+    userViatges.viatges.sort((a, b) => a.dataNumber - b.dataNumber);
     res.json(userViatges.viatges);
   } catch (error) {
     error.status = 400;
