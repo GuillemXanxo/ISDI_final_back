@@ -5,6 +5,7 @@ const {
   deleteViatge,
   createViatge,
   getUserViatges,
+  getThisViatge,
 } = require("./viatgesControllers");
 
 jest.mock("../../db/models/Viatge");
@@ -211,6 +212,28 @@ describe("Given a getUserViatges function", () => {
       await getUserViatges(req, res, next);
 
       expect(next).toHaveBeenCalledWith(expectedError);
+    });
+  });
+});
+
+describe("Given a getThisTrip controller", () => {
+  describe("When it receives an incorrect id", () => {
+    test("Then it should call method next with an error", async () => {
+      const id = "2";
+      const req = {
+        params: {
+          id,
+        },
+        userId: "42",
+      };
+
+      const next = jest.fn();
+      const error = new Error("Could not find the Trip");
+      Viatge.findByIdAndRemove = jest.fn().mockRejectedValue(error);
+
+      await getThisViatge(req, null, next);
+
+      expect(next).toHaveBeenCalledWith(error);
     });
   });
 });
