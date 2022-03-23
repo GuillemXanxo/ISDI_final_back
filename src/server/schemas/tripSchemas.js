@@ -8,7 +8,7 @@ const createTripValidation = {
     data: Joi.string().required(),
     horaSortida: Joi.string().required(),
     comentaris: Joi.string().required(),
-    dones: Joi.string().required(),
+    dones: Joi.boolean().required(),
     id: Joi.string(),
   }),
 };
