@@ -1,6 +1,6 @@
-import { Joi } from "express-validation";
+const { Joi } = require("express-validation");
 
-export const registerValidation = {
+const registerValidation = {
   body: Joi.object({
     nom: Joi.string().required(),
     usuari: Joi.string().required(),
@@ -11,7 +11,7 @@ export const registerValidation = {
   }),
 };
 
-export const loginValidation = {
+const loginValidation = {
   body: Joi.object({
     usuari: Joi.string().required(),
     contrassenya: Joi.string()
@@ -19,3 +19,5 @@ export const loginValidation = {
       .required(),
   }),
 };
+
+module.exports = { registerValidation, loginValidation };
