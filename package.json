@@ -17,7 +17,7 @@
       "!src/**/*.test.js",
       "!src/index.js",
       "!src/server/serverUp.js",
-      "!src/database/index.js"
+      "!src/db/index.js"
     ]
   },
   "keywords": [],
