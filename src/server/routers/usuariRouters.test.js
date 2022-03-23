@@ -111,20 +111,17 @@ describe("Given a usuari/register endpoint", () => {
   describe("When it receives a post request with a new user", () => {
     test("Then it should respond with a message `Usuari Danae s'ha registrat correctament`", async () => {
       const userToCreate = {
-        body: {
-          nom: "Marc",
-          usuari: "Danae",
-          contrassenya: "marc1990",
-          telefon: "123456789",
-        },
+        nom: "Marc",
+        usuari: "Danae",
+        contrassenya: "marc1990",
+        telefon: "123456789",
       };
 
       const Message = `Usuari ${userToCreate.usuari} s'ha registrat correctament`;
 
       const { body } = await request(app)
         .post("/usuari/register")
-        .send(userToCreate)
-        .expect(201);
+        .send(userToCreate);
 
       expect(body).toHaveProperty("message");
       expect(body.message).toBe(Message);
