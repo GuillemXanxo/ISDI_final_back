@@ -38,7 +38,6 @@ describe("Given an endpoint /usuari/login", () => {
   describe("When it receives a post request with body {usuari: 'gxanxo': contrassenya:'guillemito'}", () => {
     test("Then it should respond with status 200 and a json with a token", async () => {
       const User = {
-        nom: "Guillem",
         usuari: "gxanxo",
         contrassenya: "guillemito",
       };
@@ -54,7 +53,6 @@ describe("Given an endpoint /usuari/login", () => {
   describe("When it receives a post request with body {usuari: 'gxanxo': contrassenya:'wrongpass'}", () => {
     test("Then it should respond with status 401 and a json with an error property", async () => {
       const wrongUsuari = {
-        nom: "Guillem",
         usuari: "gxanxo",
         contrassenya: "wrongpass",
       };
@@ -72,7 +70,6 @@ describe("Given an endpoint /usuari/login", () => {
   describe("When it receives a post request with body {usuari: 'wrongUsuari': contrassenya:'guillemito'}", () => {
     test("Then it should respond with status 401 and a json with an error property", async () => {
       const wrongUsuari = {
-        non: "Guillem",
         usuari: "wrongUsuari",
         contrassenya: "guillemito",
       };
@@ -92,9 +89,10 @@ describe("Given a usuari/register endpoint", () => {
   describe("When it receives a post request with an existing user", () => {
     test("Then it should respond with an error message `Alguna cosa ha anat malament en el registre`", async () => {
       const userToCreate = {
-        name: "Marc",
-        username: "gxanxo",
-        password: "marc",
+        nom: "Marc",
+        usuari: "gxanxo",
+        contrassenya: "marc",
+        telefon: "123456789",
       };
 
       const errorMessage = `Alguna cosa ha anat malament en el registre`;
@@ -111,20 +109,19 @@ describe("Given a usuari/register endpoint", () => {
   });
 
   describe("When it receives a post request with a new user", () => {
-    test("Then it should respond with a message `Usuari marc1990 s'ha registrat correctament`", async () => {
+    test("Then it should respond with a message `Usuari Danae s'ha registrat correctament`", async () => {
       const userToCreate = {
         nom: "Marc",
-        usuari: "marc1990",
-        contrassenya: "marc",
-        telefon: 611111111,
+        usuari: "Danae",
+        contrassenya: "marc1990",
+        telefon: "123456789",
       };
 
       const Message = `Usuari ${userToCreate.usuari} s'ha registrat correctament`;
 
       const { body } = await request(app)
         .post("/usuari/register")
-        .send(userToCreate)
-        .expect(201);
+        .send(userToCreate);
 
       expect(body).toHaveProperty("message");
       expect(body.message).toBe(Message);
