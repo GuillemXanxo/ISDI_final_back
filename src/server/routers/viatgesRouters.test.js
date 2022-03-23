@@ -110,7 +110,6 @@ describe("Given an endpoint viatges/crear", () => {
         comentaris: "S'accepten animals",
         dones: "false",
         data: "2018-02-12",
-        id: "2",
       };
 
       const { body } = await request(app)
